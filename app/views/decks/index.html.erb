@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Decks</h1>
+
+<%= content_tag :div, class: "col-lg-12" do %>
+
+  <ul class="list-group">
+    <% @decks.each do |deck| %>
+      <%= link_to deck_path(deck) do %>
+        <li class="list-group-item">
+          <%= "#{deck.name} (#{deck.match_wins} Wins)" %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+
+<% end %>
+
+
+<%= link_to 'New Deck', new_deck_path %>

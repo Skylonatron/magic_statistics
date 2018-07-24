@@ -1,0 +1,12 @@
+<% active ||= nil %>
+
+<%= content_tag :div, class: 'col-lg-12' do %>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <%= content_tag :a, class: "nav-link #{ active == 'table' ? 'active' : nil }", href: deck_path(@deck, type: 'table') do "Table" end %>
+    </li>
+    <li class="nav-item">
+      <%= content_tag :a, class: "nav-link #{ active == 'grid' ? 'active' : nil }", href: deck_path(@deck, type: 'grid') do "Grid" end %>
+    </li>
+  </ul>
+<% end %>

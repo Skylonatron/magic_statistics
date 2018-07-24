@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<%= content_tag :div, class: "col-lg-12" do %>
+  <%= render 'navigation', active: "table" %>
+  <%= "Wins: #{@deck.match_wins}" %>
+
+  <table class="table table-striped">
+    <thead class="thead-light">
+      <tr>
+        <th>Name</th>
+        <th>Magic ID</th>
+        <th>Rarity</th>
+        <th>Set</th>
+        <th>Collector Number</th>
+        <th>Premium</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @cards.each_with_index do |card, i| %>
+        <tr>
+          <%#= content_tag :td do image_tag(card.image_url) end %>
+          <%= content_tag :td do %>
+            <span onmouseover="hoverdiv(event,'<%= "divtoshow#{i}" %>')" onmouseout="hoverdiv(event,'<%= "divtoshow#{i}" %>')">
+              <%= card.name %>
+              <div id='<%= "divtoshow#{i}" %>' style="position: fixed;display:none;">
+                <%= image_tag(card.image_url, size: "288x400") %>
+              </div>
+            </span>
+          <% end %>
+          <%= content_tag :td do card.magic_id.to_s end %>
+          <%= content_tag :td do card.rarity end %>
+          <%= content_tag :td do card.set end %>
+          <%= content_tag :td do card.collector_number end %>
+          <%= content_tag :td do card.premium end %>
+          
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
