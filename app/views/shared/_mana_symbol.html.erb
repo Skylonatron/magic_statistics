@@ -1,0 +1,6 @@
+<% color %>
+
+
+<%= content_tag :div, class: "inline-block magic-symbol-frame ms-color-#{color}", onclick: 'spinManaSymbol(this);' do %>
+  <%= content_tag :i, class: "ms ms-#{color} center ms-border" do end %>
+<% end %>

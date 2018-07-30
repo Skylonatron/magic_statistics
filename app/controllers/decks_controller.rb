@@ -14,7 +14,7 @@ class DecksController < ApplicationController
   def show
     type = params[:type] || 'table'
 
-    @cards = @deck.cards.order('rarity desc')
+    @cards = @deck.cards.order('magic_id desc')
 
     if type == 'grid'
       render 'show_grid' and return
@@ -46,8 +46,7 @@ class DecksController < ApplicationController
 
     @deck.name = params[:name] if params[:name].present?
     @deck.wins = params[:wins] if params[:wins].present?
-
-    
+    @deck.user = current_user
 
     respond_to do |format|
       if @deck.save!

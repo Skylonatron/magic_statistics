@@ -11,3 +11,11 @@ function hoverdiv(e,divid){
     $("#"+divid).toggle();
     return false;
 }
+
+function spinManaSymbol(frame){
+  if( $(frame).hasClass( "magic-symbol-spin") ){
+    $(frame).removeClass("magic-symbol-spin");
+  } else {
+    $(frame).addClass("magic-symbol-spin");
+  }
+}

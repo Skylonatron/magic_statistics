@@ -2,15 +2,21 @@
 
 <h1>Decks</h1>
 
+<link href="//cdn.jsdelivr.net/npm/mana-font@latest/css/mana.css" rel="stylesheet" type="text/css" />
+
 <%= content_tag :div, class: "col-lg-12" do %>
 
   <ul class="list-group">
     <% @decks.each do |deck| %>
-      <%= link_to deck_path(deck) do %>
-        <li class="list-group-item">
+      <li class="list-group-item">
+        <%= link_to deck_path(deck) do %>
           <%= "#{deck.name} (#{deck.match_wins} Wins)" %>
-        </li>
-      <% end %>
+        <% end %>
+        <% deck.get_colors.each do |c| %>
+          <% next if c.length > 1 %>
+          <%= render 'shared/mana_symbol', color: c.downcase %>
+        <% end %>
+      </li>
     <% end %>
   </ul>
 

@@ -2,9 +2,21 @@ class Deck < ApplicationRecord
 
   has_many :decks_cards, class_name: "DecksCards", foreign_key: "deck_id", dependent: :destroy
   has_many :cards, through: :decks_cards 
+  belongs_to :user
 
   accepts_nested_attributes_for :decks_cards, :cards
 
+  def get_colors
+    color_hash = self.cards.group(:color).count.sort_by(&:last).reverse.to_h
+    color_hash.delete("C")
+    color_hash.delete("L")
+
+    # hack to only show so many colors, change to only look at mainboard
+    color_hash.reject! { |key, value| value < 4 }
+
+    return color_hash.keys
+
+  end
 
   def self.create_from_file(file, name: nil)
 
@@ -56,3 +68,12 @@ class Deck < ApplicationRecord
 
   end
 end
+
+
+
+
+
+
+
+
+

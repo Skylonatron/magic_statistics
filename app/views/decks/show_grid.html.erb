@@ -11,6 +11,7 @@
 
     <%= content_tag :div, class: "col-lg-2 card-image" do %>
       <%= image_tag(card.image_url, size: "216x300") %>
+      <%= card.magic_id %>
     <% end %>
   <% end %>
 <% end %>

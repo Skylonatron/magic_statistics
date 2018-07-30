@@ -1,0 +1,52 @@
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+
+.magic-symbol-spin{
+  -webkit-animation-name: spin;
+  -webkit-animation-duration: 1000ms;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+}
+
+.magic-symbol-frame{
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.ms-border{
+  padding-bottom: 1px;
+}
+
+.ms-color-b{
+  background-color: grey;
+}
+
+.ms-color-u{
+  background-color: blue;
+}
+
+.ms-color-g{
+  background-color: green;
+}
+
+.ms-color-r{
+  background-color: red;
+}
+
+.ms-color-w{
+  background-color: #f5f5dc;
+}
