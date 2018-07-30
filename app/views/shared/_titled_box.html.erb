@@ -1,0 +1,25 @@
+<% title ||= nil %>
+<% button_path ||= nil %>
+<% button_name ||= nil %>
+
+
+<%= content_tag :div, class: "titled-box-outer" do %>
+
+  <%= content_tag :div, class: "titled-box-title" do %>
+    <%= content_tag :h1 do %>
+      <%= title %>
+
+      <%= link_to button_path do %>
+        <%= content_tag :button, type: "button", class: "btn btn-outline-success" do %>
+          <%= button_name %>
+        <% end %>
+      <% end if button_name && button_path %>
+    <% end %>
+
+  <% end %>
+
+  <%= content_tag :div, class: "titled-box-content" do %>
+    <%= yield %>
+  <% end %>
+
+<% end %>

@@ -1,5 +1,30 @@
 module CardsHelper
 
+  def get_full_css_color_name(color)
+
+    return case color
+    when 'W' then "White"
+    when 'B' then "Black"
+    when 'R' then "Red"
+    when 'U' then "Blue"
+    when 'C' then "Grey"
+    when 'G' then "Green"
+    end
+
+
+  end
+
+  def get_full_color_name(color)
+    return case color
+    when 'W' then "White"
+    when 'B' then "Black"
+    when 'R' then "Red"
+    when 'U' then "Blue"
+    when 'C' then "Colorless"
+    when 'G' then "Green"
+    end
+  end
+
   def get_color_from_set_and_collector_number(collector_number, set=nil)
 
     color = case

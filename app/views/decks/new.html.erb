@@ -1,5 +1,4 @@
-<%= content_tag :div, class: "rounded-box" do %>
-  <h1>Upload Deck</h1>
+<%= render 'shared/titled_box', title: "Upload Deck" do %>
 
   <%= render 'form', deck: @deck %>
 

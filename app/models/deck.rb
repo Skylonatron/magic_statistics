@@ -1,4 +1,5 @@
 class Deck < ApplicationRecord
+  include CardsHelper
 
   has_many :decks_cards, class_name: "DecksCards", foreign_key: "deck_id", dependent: :destroy
   has_many :cards, through: :decks_cards 
@@ -16,6 +17,33 @@ class Deck < ApplicationRecord
 
     return color_hash.keys
 
+  end
+
+  def get_colors_full
+    color_hash = self.cards.group(:color).count.sort_by(&:last).reverse.to_h
+    color_hash.delete("L")
+
+    color_hash_mapped = color_hash.map do |key, value|
+      [get_full_color_name(key), value]
+    end
+
+
+    return color_hash_mapped
+  end
+
+  def get_colors_for_pie_chart
+    color_hash = self.cards.group(:color).count.sort_by(&:last).reverse.to_h
+    color_hash.delete("L")
+
+    color_array = color_hash.keys
+
+    mapped_color_array = color_array.map{ |key, value|
+      get_full_css_color_name(key)
+    }
+
+    puts mapped_color_array
+
+    mapped_color_array
   end
 
   def self.create_from_file(file, name: nil)

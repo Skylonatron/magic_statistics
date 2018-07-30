@@ -1,10 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Decks</h1>
-
 <link href="//cdn.jsdelivr.net/npm/mana-font@latest/css/mana.css" rel="stylesheet" type="text/css" />
 
-<%= content_tag :div, class: "col-lg-12" do %>
+<%= render 'shared/titled_box', title: "Decks", button_name: "Add Deck", button_path: new_deck_path do %>
 
   <ul class="list-group">
     <% @decks.each do |deck| %>
@@ -22,5 +20,3 @@
 
 <% end %>
 
-
-<%= link_to 'New Deck', new_deck_path %>

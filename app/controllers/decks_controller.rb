@@ -14,12 +14,14 @@ class DecksController < ApplicationController
   def show
     type = params[:type] || 'table'
 
-    @cards = @deck.cards.order('magic_id desc')
+    @cards = @deck.cards.order('rarity desc')
 
     if type == 'grid'
       render 'show_grid' and return
     elsif type == 'table'
       render 'show_table' and return
+    elsif type == 'data'
+      render 'show_data' and return
     else 
       redirect_to root_path and return
     end

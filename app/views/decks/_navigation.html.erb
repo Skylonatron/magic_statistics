@@ -8,5 +8,8 @@
     <li class="nav-item">
       <%= content_tag :a, class: "nav-link #{ active == 'grid' ? 'active' : nil }", href: deck_path(@deck, type: 'grid') do "Grid" end %>
     </li>
+    <li class="nav-item">
+      <%= content_tag :a, class: "nav-link #{ active == 'data' ? 'active' : nil }", href: deck_path(@deck, type: 'data') do "Data" end %>
+    </li>
   </ul>
 <% end %>

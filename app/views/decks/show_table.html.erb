@@ -1,8 +1,7 @@
 <p id="notice"><%= notice %></p>
 
-<%= content_tag :div, class: "col-lg-12" do %>
+<%= render 'shared/titled_box', title: "#{@deck.name} (#{@deck.match_wins} Wins)" do %>
   <%= render 'navigation', active: "table" %>
-  <%= "Wins: #{@deck.match_wins}" %>
 
   <table class="table table-striped">
     <thead class="thead-light">

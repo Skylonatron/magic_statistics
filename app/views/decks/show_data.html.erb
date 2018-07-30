@@ -1,0 +1,8 @@
+<p id="notice"><%= notice %></p>
+
+<%= render 'shared/titled_box', title: "#{@deck.name} (#{@deck.match_wins} Wins)" do %>
+  <%= render 'navigation', active: "data" %>
+
+  <%= pie_chart @deck.get_colors_full, colors: @deck.get_colors_for_pie_chart %>
+
+<% end %>
