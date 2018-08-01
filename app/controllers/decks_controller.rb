@@ -22,7 +22,7 @@ class DecksController < ApplicationController
       render 'show_table' and return
     elsif type == 'data'
       @cards = @deck.cards_with_sideboard
-      @deck_chart_data = @deck.get_pie_chart_data
+      @deck_chart_data = @deck.cards.mainboard.get_color_pie_chart_data
       render 'show_data' and return
     else 
       redirect_to root_path and return

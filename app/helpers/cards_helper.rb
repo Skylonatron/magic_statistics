@@ -1,6 +1,6 @@
 module CardsHelper
 
-  def get_full_css_color_name(color)
+  def self.get_full_css_color_name(color)
 
     return case color
     when 'W' then "#dcdcc6"
@@ -14,7 +14,7 @@ module CardsHelper
 
   end
 
-  def get_full_color_name(color)
+  def self.get_full_color_name(color)
     return case color
     when 'W' then "White"
     when 'B' then "Black"

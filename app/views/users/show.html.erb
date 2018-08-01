@@ -1,3 +1,6 @@
 <%= render 'shared/titled_box', title: "Account Home" do %>
-
+  
+  <h3 align=center> Color Breakdown of All Draft Decks </h3>
+  <%= pie_chart @deck_chart_data[:chart_data], colors: @deck_chart_data[:colors], adapter: "google" %>
+  
 <% end %>
