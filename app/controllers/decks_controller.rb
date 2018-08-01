@@ -75,7 +75,7 @@ class DecksController < ApplicationController
 
     @deck.name = params[:name] if params[:name].present?
     @deck.wins = params[:wins] if params[:wins].present?
-    @deck.user = current_user
+    @deck.user = current_user if current_user
 
     respond_to do |format|
       if @deck.save!
