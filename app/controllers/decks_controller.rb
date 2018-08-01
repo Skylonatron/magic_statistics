@@ -14,13 +14,15 @@ class DecksController < ApplicationController
   def show
     type = params[:type] || 'table'
 
-    @cards = @deck.cards.order('rarity desc')
-
     if type == 'grid'
+      @cards = @deck.cards.mainboard.order('rarity desc, color')
       render 'show_grid' and return
     elsif type == 'table'
+      @cards = @deck.cards_with_sideboard.order('decks_cards.sideboard, rarity desc, color')
       render 'show_table' and return
     elsif type == 'data'
+      @cards = @deck.cards_with_sideboard
+      @deck_chart_data = @deck.get_pie_chart_data
       render 'show_data' and return
     else 
       redirect_to root_path and return
@@ -42,9 +44,7 @@ class DecksController < ApplicationController
 
     file = params[:file]
 
-    deck_info = Deck.create_from_file(file)
-    @deck = deck_info[:deck]
-    cards = deck_info[:cards]
+    @deck = Deck.create_from_file(file)
 
     @deck.name = params[:name] if params[:name].present?
     @deck.wins = params[:wins] if params[:wins].present?
@@ -52,8 +52,6 @@ class DecksController < ApplicationController
 
     respond_to do |format|
       if @deck.save!
-        @deck.cards << cards
-        @deck.save!
         format.html { redirect_to new_deck_path, notice: 'Deck was successfully created.' }
         format.json { render :show, status: :created, location: @deck }
       else

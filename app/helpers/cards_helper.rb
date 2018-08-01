@@ -3,7 +3,7 @@ module CardsHelper
   def get_full_css_color_name(color)
 
     return case color
-    when 'W' then "White"
+    when 'W' then "#dcdcc6"
     when 'B' then "Black"
     when 'R' then "Red"
     when 'U' then "Blue"

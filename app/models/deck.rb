@@ -1,60 +1,77 @@
 class Deck < ApplicationRecord
   include CardsHelper
 
+  validates :name, presence: true
+
   has_many :decks_cards, class_name: "DecksCards", foreign_key: "deck_id", dependent: :destroy
   has_many :cards, through: :decks_cards 
   belongs_to :user
 
-  accepts_nested_attributes_for :decks_cards, :cards
+
+  def cards_with_sideboard
+    self.cards.select("cards.*, decks_cards.sideboard")
+  end
 
   def get_colors
-    color_hash = self.cards.group(:color).count.sort_by(&:last).reverse.to_h
+    color_hash = self.cards.mainboard.group(:color).count.sort_by(&:last).reverse.to_h
     color_hash.delete("C")
     color_hash.delete("L")
 
-    # hack to only show so many colors, change to only look at mainboard
-    color_hash.reject! { |key, value| value < 4 }
+    colors_array = color_hash.keys.flat_map do |c|
+      if c.length > 1
+        c.split('')
+      else
+        c
+      end
+    end
 
-    return color_hash.keys
+    colors_array.uniq
+
 
   end
 
-  def get_colors_full
-    color_hash = self.cards.group(:color).count.sort_by(&:last).reverse.to_h
+  def get_pie_chart_data
+    color_hash = self.cards.mainboard.group(:color).count.sort_by(&:last).reverse.to_h
     color_hash.delete("L")
 
-    color_hash_mapped = color_hash.map do |key, value|
+    color_hash.each do |key, value|
+      multicolor = []
+      if key.length > 1
+        color_hash.delete(key)
+        key.split('').each do |letter|
+          if color_hash[letter]
+            color_hash[letter] += 1
+          # else
+          #   color_hash[letter] = 1
+          end
+        end
+      end
+    end
+
+    chart_data = color_hash.map do |key, value|
       [get_full_color_name(key), value]
     end
 
-
-    return color_hash_mapped
-  end
-
-  def get_colors_for_pie_chart
-    color_hash = self.cards.group(:color).count.sort_by(&:last).reverse.to_h
-    color_hash.delete("L")
-
-    color_array = color_hash.keys
-
-    mapped_color_array = color_array.map{ |key, value|
+    color_data = color_hash.map do |key, value|
       get_full_css_color_name(key)
-    }
+    end
 
-    puts mapped_color_array
+    { colors: color_data, chart_data: chart_data }
 
-    mapped_color_array
   end
+
 
   def self.create_from_file(file, name: nil)
 
     d = Deck.new(name: file.original_filename)
     cards = []
 
+
+
     CSV.foreach(file.path, headers: true) do |row|
 
+      # collecting win loss data from the first row
       if $. == 2
-        sideboard = row[7]
         match_wins = row[8]
         match_losses = row[9]
         game_wins = row[10]
@@ -70,7 +87,7 @@ class Deck < ApplicationRecord
 
       name = row[0]
 
-      next unless name.present?
+      next unless name.present? 
 
       quantity = row[1]
       magic_id = row[2]
@@ -78,6 +95,7 @@ class Deck < ApplicationRecord
       set = row[4]
       collector_number = row[5]
       premium = row[6]
+      sideboard = row[7]
 
       card = Card.find_or_create_by(
         name: name,
@@ -85,14 +103,15 @@ class Deck < ApplicationRecord
         rarity: rarity.parameterize.underscore,
         set: set,
         collector_number: collector_number,
-        premium: premium.parameterize()
+        premium: premium.parameterize
       )
 
-      cards << card
+      d.decks_cards.new(card: card, sideboard: sideboard.downcase)
+
 
     end
 
-    return { deck: d, cards: cards }
+    return d
 
   end
 end

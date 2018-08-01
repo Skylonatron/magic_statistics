@@ -12,6 +12,7 @@
         <th>Set</th>
         <th>Collector Number</th>
         <th>Color</th>
+        <th>SideBoard</th>
       </tr>
     </thead>
 
@@ -32,6 +33,7 @@
           <%= content_tag :td do card.set end %>
           <%= content_tag :td do card.collector_number end %>
           <%= content_tag :td do card.color end %>
+          <%= content_tag :td do DecksCards.sideboards.key(card.sideboard) end %>
           
 
         </tr>

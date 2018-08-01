@@ -9,6 +9,8 @@ class Card < ApplicationRecord
 
   before_save :get_color
 
+  scope :mainboard, -> { where('decks_cards.sideboard = 0') }
+
   def image_url
     "https://img.scryfall.com/cards/large/en/#{self.set.downcase}/#{self.collector_number_numerator}.jpg?"
   end
