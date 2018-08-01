@@ -14,23 +14,25 @@
   min-height: 500px;
 }
 
+.titled-box-title{
+/*  color: rgba(0, 0, 0, 0.5) !important;
+*/}
+
+.color-opacity{
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.titled-box-content{
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px
+}
+
 .titled-box-outer{
   background-color: #FFFFFF;
   min-height: 500px;
   margin: 20px;
-  border-radius: 12px;
-  border: 1px solid grey
+  /*border-radius: 12px;*/
+  border: 1px solid rgb(130,130,130)
 
-}
-
-.titled-box-title{
-  color: black;
-  border-bottom: 1px solid grey;
-  padding-left: 15px;
-  padding-top: 10px;
-  padding-bottom: 3px;
-}
-
-.titled-box-content{
-  padding: 10px;
 }

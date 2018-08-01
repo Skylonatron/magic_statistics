@@ -1,25 +1,35 @@
 <% title ||= nil %>
-<% button_path ||= nil %>
-<% button_name ||= nil %>
-
+<% home_path ||= nil %>
+<% items ||= nil %>
 
 <%= content_tag :div, class: "titled-box-outer" do %>
 
-  <%= content_tag :div, class: "titled-box-title" do %>
-    <%= content_tag :h1 do %>
-      <%= title %>
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;">
+  <%= content_tag :a, class: "navbar-brand mb-0 h1 titled-box-title #{request.path == home_path ? nil : 'color-opacity'}", href: @home_path do title end %>
 
-      <%= link_to button_path do %>
-        <%= content_tag :button, type: "button", class: "btn btn-outline-success" do %>
-          <%= button_name %>
+  <% if items %>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav1">
+      <ul class="navbar-nav">
+        <% items.each do |i| %>
+          <%= content_tag :li, class: "nav-item #{request.path == i[:path] ? 'active' : nil}" do %>
+            <%= content_tag :a, class: "nav-link", href: i[:path] do %>
+              <%= i[:name] %>
+            <% end %>
+          <% end %>
         <% end %>
-      <% end if button_name && button_path %>
-    <% end %>
-
+      </ul>
+    </div>
   <% end %>
+  </nav>
 
   <%= content_tag :div, class: "titled-box-content" do %>
+
     <%= yield %>
+
   <% end %>
 
 <% end %>

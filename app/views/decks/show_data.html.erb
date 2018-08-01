@@ -1,8 +1,3 @@
-<p id="notice"><%= notice %></p>
+<%= render 'navigation', active: "data" %>
 
-<%= render 'shared/titled_box', title: "#{@deck.name} (#{@deck.match_wins} Wins)" do %>
-  <%= render 'navigation', active: "data" %>
-
-  <%= pie_chart @deck_chart_data[:chart_data], colors: @deck_chart_data[:colors], adapter: "google" %>
-
-<% end %>
+<%= pie_chart @deck_chart_data[:chart_data], colors: @deck_chart_data[:colors], adapter: "google" %>

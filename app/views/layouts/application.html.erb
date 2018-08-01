@@ -11,6 +11,8 @@
 
   <%= render partial: "shared/navbar" %>
   <body class='home'>
-    <%= yield %>
+    <%= render 'shared/titled_box', title: @title, items: @items, home_path: @home_path do %>
+      <%= yield %>
+    <% end %>
   </body>
 </html>

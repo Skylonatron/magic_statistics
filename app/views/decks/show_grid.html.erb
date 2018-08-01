@@ -1,14 +1,11 @@
-<p id="notice"><%= notice %></p>
 
-<%= render 'shared/titled_box', title: "#{@deck.name} (#{@deck.match_wins} Wins)" do %>  
-  <%= render 'navigation', active: "grid" %>
+<%= render 'navigation', active: "grid" %>
 
-  <%= content_tag :div, class: "col-lg-12" do %>
-    <% @cards.each do |card| %>
+<%= content_tag :div, class: "col-lg-12" do %>
+  <% @cards.each do |card| %>
 
-      <%= content_tag :div, class: "inline-block card-image" do %>
-        <%= image_tag(card.image_url, size: "216x300") %>
-      <% end %>
+    <%= content_tag :div, class: "inline-block card-image" do %>
+      <%= image_tag(card.image_url, size: "216x300") %>
     <% end %>
   <% end %>
 <% end %>

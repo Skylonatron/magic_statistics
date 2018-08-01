@@ -1,22 +1,16 @@
-<p id="notice"><%= notice %></p>
-
 <link href="//cdn.jsdelivr.net/npm/mana-font@latest/css/mana.css" rel="stylesheet" type="text/css" />
 
-<%= render 'shared/titled_box', title: "Decks", button_name: "Add Deck", button_path: new_deck_path do %>
-
-  <ul class="list-group">
-    <% @decks.each do |deck| %>
-      <li class="list-group-item">
-        <%= link_to deck_path(deck) do %>
-          <%= "#{deck.name} (#{deck.match_wins} Wins)" %>
-        <% end %>
-        <% deck.get_colors.each do |c| %>
-          <% next if c.length > 1 %>
-          <%= render 'shared/mana_symbol', color: c.downcase %>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
-
-<% end %>
+<ul class="list-group">
+  <% @decks.each do |deck| %>
+    <li class="list-group-item">
+      <%= link_to deck_path(deck) do %>
+        <%= "#{deck.name} (#{deck.match_wins} Wins)" %>
+      <% end %>
+      <% deck.get_colors.each do |c| %>
+        <% next if c.length > 1 %>
+        <%= render 'shared/mana_symbol', color: c.downcase %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
 

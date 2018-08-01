@@ -6,12 +6,31 @@ class DecksController < ApplicationController
   # GET /decks
   # GET /decks.json
   def index
+    @title = "All Decks"
+    @home_path = decks_path
+    @items = [{ name: "New", path: new_deck_path }]
+
     @decks = Deck.all
+  end
+
+  def user_index
+    @user = User.find(params[:user_id])
+    @title = "Account Home"
+    @home_path = user_path(@user)
+    @items = [{ name: "My Decks", path: user_decks_path(@user) }]
+
+    @decks = @user.decks
+
+    render 'index'
   end
 
   # GET /decks/1
   # GET /decks/1.json
   def show
+    @title = "All Decks"
+    @home_path = decks_path
+    @items = [{ name: "New", path: new_deck_path }, { name: @deck.name, path: deck_path(@deck)}]
+
     type = params[:type] || 'table'
 
     if type == 'grid'
@@ -31,6 +50,10 @@ class DecksController < ApplicationController
 
   # GET /decks/new
   def new
+    @title = "All Decks"
+    @home_path = decks_path
+    @items = [{ name: "New", path: new_deck_path }]
+
     @deck = Deck.new
   end
 
@@ -41,6 +64,10 @@ class DecksController < ApplicationController
   # POST /decks
   # POST /decks.json
   def create
+    @title = "Decks"
+    @home_path = decks_path
+
+    @items = [{ name: "New", path: new_deck_path }]
 
     file = params[:file]
 
